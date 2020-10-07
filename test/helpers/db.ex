@@ -1,4 +1,4 @@
-defmodule Test.Helpers.Db do
+defmodule Test.GitTrendex.Helpers.Db do
   alias GitTrendex.Db.Repo
   alias GitTrendex.Db.Repository
 
