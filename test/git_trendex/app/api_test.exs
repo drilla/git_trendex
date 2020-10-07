@@ -9,9 +9,7 @@ defmodule Test.GitTrendex.App.ApiTest do
 
   describe "get repo success" do
     setup do
-      name = "test"
-      id = 123
-      model = add_repo(name, id)
+      model = add_repo("test", 123)
 
       %{model: model}
     end
