@@ -1,0 +1,29 @@
+{
+  "skip_files": [
+    "test/support",
+    "test/helpers",
+    "test/mocks",
+
+    "lib/git_trendex_web.ex",
+    "lib/git_trendex_web/channels/user_socket.ex",        
+    "lib/git_trendex_web/controllers/page_controller.ex", 
+    "lib/git_trendex_web/endpoint.ex",                    
+    "lib/git_trendex_web/gettext.ex",    
+    "lib/git_trendex_web/views/error_helpers.ex",    
+    "lib/git_trendex_web/views/layout_view.ex",    
+    
+    "lib/git_trendex.ex",
+    "lib/git_trendex/application.ex",
+    "lib/git_trendex/pact.ex",
+
+    "lib/git_trendex/db/repo_interface.ex",
+    "lib/git_trendex/github/api_interface.ex",
+
+    "lib/git_trendex/github/repository_model.ex",
+    "lib/git_trendex/db/repository.ex"
+
+  ],
+  "terminal_options": {
+    "file_column_width": 100
+  }
+}
