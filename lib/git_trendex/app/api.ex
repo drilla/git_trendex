@@ -1,25 +1,33 @@
 defmodule GitTrendex.App.Api do
-
-  alias GitTrendex.Db.Repo
+  alias GitTrendex.Pact
   alias GitTrendex.Db.Repository
+  alias GitTrendex.Github.ApiInterface
+  alias GitTrendex.App.RepositoryModelAdapter
 
-  @spec get_repo(integer | binary) :: Repository.t() | nil
+  @spec get_repo(non_neg_integer | binary) :: Repository.t() | nil
   def get_repo(id) when is_integer(id) do
-     Repo.get(Repository, id)
+    Pact.repo().get(Repository, id)
   end
 
   def get_repo(name) when is_binary(name) do
-    Repo.get_by(Repository, [name: name])
+    Pact.repo().get_by(Repository, name: name)
   end
 
-  @spec get_all() :: [map]
+  @spec get_all() :: [Repository.t()]
   def get_all() do
-    Repo.all(Repository)
+    Pact.repo().all(Repository)
   end
 
-  @spec sync() :: :ok
+  @spec sync() :: :ok | ApiInterface.api_errors()
   def sync() do
-    :ok
+    case Pact.github_api().fetch_trending() do
+      {:ok, repos} ->
+        repos
+        |> Enum.map(&RepositoryModelAdapter.from_git!/1)
+        |> Pact.repo().refresh_repos()
+        :ok
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
-
 end

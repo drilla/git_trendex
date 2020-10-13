@@ -7,6 +7,7 @@ defmodule GitTrendex.Application do
 
   def start(_type, _args) do
     children = [
+      GitTrendex.Pact,
       # Start the Ecto repository
       GitTrendex.Db.Repo,
       # Start the Telemetry supervisor
