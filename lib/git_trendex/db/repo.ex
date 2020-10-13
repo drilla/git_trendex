@@ -10,27 +10,41 @@ defmodule GitTrendex.Db.Repo do
 
   import Ecto.Query
 
+  require Logger
+
   @impl GitTrendex.Db.RepoInterface
   def refresh_repos(new_repos) do
     db_repos = all(Repository)
 
-    transaction(fn ->
-      insert_or_update_new(new_repos)
-      delete_missing(new_repos, db_repos)
-    end)
+    result =
+      transaction(fn ->
+        try do
+          insert_or_update_new(new_repos)
+          delete_missing(new_repos, db_repos)
+          :ok
+        rescue
+          error ->
+            Logger.error(inspect(error))
+            rollback(:error)
+            :error
+        end
+      end)
 
-    :ok
+    case result do
+      {:ok, _} -> :ok
+      {:error, _} -> :error
+    end
   end
 
   defp insert_or_update_new(repos) do
     maps = EctoHelper.to_maps(repos)
 
-    insert_all(Repository, maps, [on_conflict: :replace_all, conflict_target: :id]) |> IO.inspect()
+    insert_all(Repository, maps, on_conflict: :replace_all, conflict_target: :id)
   end
 
   defp delete_missing(new, current) do
     missing_ids = get_missing_ids(new, current)
-    delete_all( from(r in Repository, where: r.id in ^missing_ids))
+    delete_all(from(r in Repository, where: r.id in ^missing_ids))
   end
 
   defp get_missing_ids(new_items, db_items) do
