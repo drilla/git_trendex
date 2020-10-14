@@ -1,11 +1,8 @@
 defmodule Test.GitTrendex.Github.ParserTest do
-  alias GitTrendex.Pact
-alias GitTrendex.Github.Parser
+  alias GitTrendex.Github.Parser
   require GitTrendex.Pact
 
   use ExUnit.Case
-
-
 
   describe "parsing" do
     setup do
@@ -20,9 +17,9 @@ alias GitTrendex.Github.Parser
       assert is_list(repos)
       assert Enum.count(repos) > 0
     end
-
   end
-    test "failure, illegal content" do
-      assert Parser.parse_document("xxxxx") == :error
-    end
+
+  test "failure, illegal content" do
+    assert Parser.parse_document("xxxxx") == :error
+  end
 end

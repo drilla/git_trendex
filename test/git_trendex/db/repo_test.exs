@@ -1,6 +1,5 @@
 defmodule Test.GitTrendex.App.RepoTest do
   alias GitTrendex.Db.Repository
-  alias GitTrendex.Pact
   alias GitTrendex.Db.Repo
 
   require GitTrendex.Pact
@@ -36,7 +35,7 @@ defmodule Test.GitTrendex.App.RepoTest do
       assert ecto_lists_equals(after_sync, new_repos)
     end
 
-    test "failure, any illegal params", %{db_repos: db_repos, new_repos: new_repos} do
+    test "failure, any illegal params" do
       assert Repo.refresh_repos([:err]) == :error
     end
   end

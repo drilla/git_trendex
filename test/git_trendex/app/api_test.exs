@@ -76,8 +76,8 @@ defmodule Test.GitTrendex.App.ApiTest do
   describe "sync ok using db" do
     setup do
       # in db repos
-      repo_1_in_db = add_repo(%Repository{id: 1, name: "test", stars: 1})
-      repo_2_in_db = add_repo(%Repository{id: 10, name: "test10", stars: 10})
+      add_repo(%Repository{id: 1, name: "test", stars: 1})
+      add_repo(%Repository{id: 10, name: "test10", stars: 10})
 
       on_exit(fn ->
         Pact.register(:github_api, GitTrendex.Github.Api)
