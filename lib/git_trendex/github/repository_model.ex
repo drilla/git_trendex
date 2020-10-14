@@ -6,9 +6,11 @@ defmodule GitTrendex.Github.RepositoryModel do
   @type t :: %__MODULE__{
           id: non_neg_integer(),
           name: binary,
-          url: binary,
-          stars: non_neg_integer()
+          owner: binary,
+          desc: binary,
+          stars: non_neg_integer(),
+          stars_today: non_neg_integer()
         }
 
-  defstruct [:id, :name, :url, :stars]
+  defstruct [:id, :name, :owner, :desc, :stars, :stars_today]
 end

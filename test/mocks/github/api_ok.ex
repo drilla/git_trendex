@@ -3,6 +3,6 @@ defmodule Test.GitTrendex.Mocks.Github.ApiOk do
   alias GitTrendex.Github.RepositoryModel
 
   def fetch_trending() do
-    {:ok, [%RepositoryModel{name: "test", url: "url", id: 1, stars: 10}]}
+    {:ok, [%RepositoryModel{name: "test", id: 1, stars: 10}]}
   end
 end

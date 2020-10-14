@@ -76,8 +76,8 @@ defmodule Test.GitTrendex.App.ApiTest do
   describe "sync ok using db" do
     setup do
       # in db repos
-      repo_1_in_db = add_repo(%Repository{id: 1, name: "test", url: "http", stars: 1})
-      repo_2_in_db = add_repo(%Repository{id: 10, name: "test10", url: "http10", stars: 10})
+      repo_1_in_db = add_repo(%Repository{id: 1, name: "test", stars: 1})
+      repo_2_in_db = add_repo(%Repository{id: 10, name: "test10", stars: 10})
 
       on_exit(fn ->
         Pact.register(:github_api, GitTrendex.Github.Api)
@@ -88,8 +88,8 @@ defmodule Test.GitTrendex.App.ApiTest do
           def fetch_trending() do
             {:ok,
              [
-               %GitTrendex.Github.RepositoryModel{id: 10, name: "test10", url: "http10", stars: 10},
-               %GitTrendex.Github.RepositoryModel{id: 15, name: "test15", url: "http15", stars: 15}
+               %GitTrendex.Github.RepositoryModel{id: 10, name: "test10", stars: 10},
+               %GitTrendex.Github.RepositoryModel{id: 15, name: "test15", stars: 15}
              ]}
           end
         end
@@ -110,8 +110,8 @@ defmodule Test.GitTrendex.App.ApiTest do
       refute ecto_lists_equals(before_sync, after_sync)
 
       expected_sync = [
-        %Repository{id: 10, name: "test10", url: "http10", stars: 10},
-        %Repository{id: 15, name: "test15", url: "http15", stars: 15}
+        %Repository{id: 10, name: "test10",  stars: 10},
+        %Repository{id: 15, name: "test15",  stars: 15}
       ]
 
       assert ecto_lists_equals(after_sync, expected_sync)

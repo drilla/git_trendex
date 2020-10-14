@@ -49,6 +49,7 @@ defmodule GitTrendex.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:excoveralls, "~> 0.10", only: :test},
       {:httpoison, "~> 1.7"},
+      {:floki, "~> 0.29.0"},
       {:pact, "~> 0.2.1"}
     ]
   end

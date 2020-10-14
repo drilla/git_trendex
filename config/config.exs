@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :git_trendex,
-  ecto_repos: [GitTrendex.Db.Repo]
+  ecto_repos: [GitTrendex.Db.Repo],
+  trending_url: "https://github.com/trending?since=daily"
 
 # Configures the endpoint
 config :git_trendex, GitTrendexWeb.Endpoint,

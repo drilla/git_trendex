@@ -5,14 +5,18 @@ defmodule GitTrendex.Db.Repository do
 
   schema "repos" do
     field(:name, :string)
-    field(:url, :string)
+    field(:owner, :string)
+    field(:desc, :string, size: 2048)
     field(:stars, :integer)
+    field(:stars_today, :integer)
   end
 
   @type t :: %{
           id: integer,
           name: binary,
-          url: binary,
-          stars: integer
+          owner: binary,
+          desc: binary,
+          stars: integer,
+          stars_today: integer
         }
 end

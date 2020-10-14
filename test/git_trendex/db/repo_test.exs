@@ -14,13 +14,13 @@ defmodule Test.GitTrendex.App.RepoTest do
     setup do
       # in db repos
       db_repos = [
-      add_repo(%Repository{id: 1, name: "test", url: "http", stars: 1}),
-      add_repo(%Repository{id: 10, name: "test10", url: "http10", stars: 10})
+      add_repo(%Repository{id: 1, name: "test", stars: 1}),
+      add_repo(%Repository{id: 10, name: "test10", stars: 10})
       ]
 
       new_repos = [
-        %Repository{id: 10, name: "test10", url: "http10", stars: 10},
-        %Repository{id: 15, name: "test15", url: "http15", stars: 15}
+        %Repository{id: 10, name: "test10",  stars: 10},
+        %Repository{id: 15, name: "test15",  stars: 15}
       ]
       %{db_repos: db_repos, new_repos: new_repos}
     end
