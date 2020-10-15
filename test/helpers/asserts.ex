@@ -1,4 +1,5 @@
 defmodule Test.GitTrendex.Helpers.Asserts do
+
   def assert_ecto_struct_equals(one, two) do
     one_clear = drop_meta(one)
     two_clear = drop_meta(two)
@@ -20,6 +21,11 @@ defmodule Test.GitTrendex.Helpers.Asserts do
       |> Enum.map(&drop_meta/1)
 
     one_sorted == two_sorted
+  end
+
+  @spec all_of_type?([struct], atom) :: boolean
+  def all_of_type?(list, struct_module) do
+    Enum.all?(list, fn %{__struct__: type} -> type == struct_module end)
   end
 
   @spec assert_type(map | struct, map | struct) :: boolean()

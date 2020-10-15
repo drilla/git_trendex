@@ -9,7 +9,7 @@ defmodule GitTrendex.Github.Parser do
 
   @spec parse_document(binary) :: {:ok, [RepositoryModel.t()]} | :error
   def parse_document(html) do
-    case Floki.parse_document(html) do
+    case Floki.parse_document(html)  do
       {:ok, html_tree} ->
           html_tree
           |> Floki.find("main .Box article.Box-row")
