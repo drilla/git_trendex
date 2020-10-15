@@ -15,12 +15,23 @@ defmodule Test.GitTrendex.Github.ApiTest do
   end
 
   test "got response, 404" do
+    Pact.replace :http, Test.Mocks.Github.HttpClientError404 do
+      assert {:error, :api_error} = Api.fetch_trending()
+    end
+  end
 
+
+  test "api error" do
+    Pact.replace :http, Test.Mocks.Github.HttpClientErrorApi do
+      assert {:error, :api_error} = Api.fetch_trending()
+    end
   end
 
 
   test "error" do
-
+    Pact.replace :http, Test.Mocks.Github.HttpClientError do
+      assert {:error, :other} = Api.fetch_trending()
+    end
   end
 
 end

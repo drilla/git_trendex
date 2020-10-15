@@ -34,6 +34,10 @@ defmodule GitTrendex.Github.Api do
     {:error, :api_error}
   end
 
+  defp recycle_error({:error, %HTTPoison.Response{} = resp}) do
+    Logger.error(inspect(resp))
+    {:error, :api_error}
+  end
   defp recycle_error(error) do
     Logger.error(inspect(error))
     {:error, :other}
