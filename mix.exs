@@ -10,7 +10,7 @@ defmodule GitTrendex.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test, test_integration: :test, test_unit: :test],
       aliases: aliases(),
       deps: deps()
     ]
@@ -65,7 +65,8 @@ defmodule GitTrendex.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test_integration: ["ecto.create --quiet", "ecto.migrate --quiet", "test --only integration:true"],
+      test_unit: ["test --no-start --exclude integration:true"]
     ]
   end
 end

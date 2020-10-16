@@ -6,9 +6,12 @@ defmodule GitTrendex.Pact do
 
   use Pact
 
+  register(:app_api, GitTrendex.App.Api)
   register(:http, HTTPoison)
   register(:repo, GitTrendex.Db.Repo)
   register(:github_api, GitTrendex.Github.Api)
+
+  def app_api(), do: GitTrendex.Pact.get(:app_api)
 
   def repo(), do: GitTrendex.Pact.get(:repo)
 

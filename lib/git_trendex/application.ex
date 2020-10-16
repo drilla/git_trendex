@@ -5,11 +5,14 @@ defmodule GitTrendex.Application do
 
   use Application
 
+  @timeout Application.get_env(:git_trendex, :refresh_rate_minutes) * 1000
+
   def start(_type, _args) do
     children = [
       GitTrendex.Pact,
       # Start the Ecto repository
       GitTrendex.Db.Repo,
+      {GitTrendex.App.DbUpdater, timeout: @timeout},
       # Start the Telemetry supervisor
       GitTrendexWeb.Telemetry,
       # Start the PubSub system

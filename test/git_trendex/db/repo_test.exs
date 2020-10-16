@@ -9,6 +9,8 @@ defmodule Test.GitTrendex.App.RepoTest do
   import Test.GitTrendex.Helpers.Db
   import Test.GitTrendex.Helpers.Asserts
 
+  @moduletag :integration
+
   describe "refresh db" do
     setup do
       # in db repos

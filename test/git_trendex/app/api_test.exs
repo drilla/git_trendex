@@ -11,6 +11,7 @@ defmodule Test.GitTrendex.App.ApiTest do
   require GitTrendex.Pact
 
   use GitTrendex.DataCase, async: false
+  @moduletag :integration
 
   import Test.GitTrendex.Helpers.Db
   import Test.GitTrendex.Helpers.Asserts
@@ -94,12 +95,11 @@ defmodule Test.GitTrendex.App.ApiTest do
           end
         end
 
-        Pact.register(:github_api, fake_api)
+      Pact.register(:github_api, fake_api)
 
       :ok
     end
 
-    @tag :this
     test "sync succes with db" do
       before_sync = Api.get_all()
 
@@ -110,8 +110,8 @@ defmodule Test.GitTrendex.App.ApiTest do
       refute ecto_lists_equals(before_sync, after_sync)
 
       expected_sync = [
-        %Repository{id: 10, name: "test10",  stars: 10},
-        %Repository{id: 15, name: "test15",  stars: 15}
+        %Repository{id: 10, name: "test10", stars: 10},
+        %Repository{id: 15, name: "test15", stars: 15}
       ]
 
       assert ecto_lists_equals(after_sync, expected_sync)
