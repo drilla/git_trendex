@@ -6,8 +6,7 @@ defmodule Test.GitTrendex.Github.ParserTest do
 
   describe "parsing" do
     setup do
-      url = Application.get_env(:git_trendex, :trending_url)
-      {:ok, %HTTPoison.Response{body: document}} = HTTPoison.get(url)
+      document = File.read!("test/mocks/github/trending_mock.html")
       %{document: document}
     end
 
