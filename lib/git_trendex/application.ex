@@ -5,14 +5,12 @@ defmodule GitTrendex.Application do
 
   use Application
 
-  @timeout Application.get_env(:git_trendex, :refresh_rate_minutes) * 1000
-
   def start(_type, _args) do
     children = [
       GitTrendex.Pact,
       # Start the Ecto repository
       GitTrendex.Db.Repo,
-      {GitTrendex.App.DbUpdater, timeout: @timeout},
+      {GitTrendex.App.DbUpdater, timeout: GitTrendex.App.UpdateTimeout.timeout()},
       # Start the Telemetry supervisor
       GitTrendexWeb.Telemetry,
       # Start the PubSub system
@@ -27,6 +25,16 @@ defmodule GitTrendex.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: GitTrendex.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp get_timeout() do
+    Application.get_env(:git_trendex, :refresh_rate_minutes)
+    |> to_minutes()
+  end
+
+  def to_minutes(nil), do: nil
+  def to_minutes(time) when is_integer(time) do
+    Application.get_env(:git_trendex, :refresh_rate_minutes) * 1000 * 60
   end
 
   # Tell Phoenix to update the endpoint configuration

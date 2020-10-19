@@ -1,6 +1,9 @@
 use Mix.Config
 
-# Configure your database
+config :git_trendex,
+  refresh_rate_minutes: nil
+
+  # Configure your database
 config :git_trendex, GitTrendex.Db.Repo,
   database: "git_trendex_dev",
   hostname: "localhost",

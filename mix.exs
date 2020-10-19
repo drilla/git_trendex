@@ -9,7 +9,7 @@ defmodule GitTrendex.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: ExCoveralls, test_task: "test_integration"], #"test_integration or test_unit"
       preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test, test_integration: :test, test_unit: :test],
       aliases: aliases(),
       deps: deps()
