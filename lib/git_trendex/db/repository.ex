@@ -1,6 +1,6 @@
 defmodule GitTrendex.Db.Repository do
+  @derive {Jason.Encoder, only: [:id, :name, :owner, :desc, :stars, :stars_today]}
   use Ecto.Schema
-
   @primary_key {:id, :integer, autogenerate: false}
 
   schema "repos" do

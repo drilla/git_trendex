@@ -30,6 +30,7 @@ defmodule GitTrendex.MixProject do
   defp escript do
     [main_module: GitTrendex.App.Cli, app: nil, emu_args: ["-sname client -setcookie main"]]
   end
+
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support", "test/helpers", "test/mocks"]
   defp elixirc_paths(_), do: ["lib"]
