@@ -27,16 +27,6 @@ defmodule GitTrendex.Application do
     Supervisor.start_link(children, opts)
   end
 
-  defp get_timeout() do
-    Application.get_env(:git_trendex, :refresh_rate_minutes)
-    |> to_minutes()
-  end
-
-  def to_minutes(nil), do: nil
-  def to_minutes(time) when is_integer(time) do
-    Application.get_env(:git_trendex, :refresh_rate_minutes) * 1000 * 60
-  end
-
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do

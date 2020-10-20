@@ -11,6 +11,7 @@ defmodule GitTrendex.MixProject do
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls, test_task: "test_integration"], #"test_integration or test_unit"
       preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test, test_integration: :test, test_unit: :test],
+      escript: escript(),
       aliases: aliases(),
       deps: deps()
     ]
@@ -26,6 +27,9 @@ defmodule GitTrendex.MixProject do
     ]
   end
 
+  defp escript do
+    [main_module: GitTrendex.App.Cli, app: nil, emu_args: ["-sname client -setcookie main"]]
+  end
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support", "test/helpers", "test/mocks"]
   defp elixirc_paths(_), do: ["lib"]
