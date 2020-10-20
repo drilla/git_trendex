@@ -3,6 +3,7 @@ defmodule GitTrendex.App.Api do
   alias GitTrendex.Db.Repository
   alias GitTrendex.Github.ApiInterface
   alias GitTrendex.App.RepositoryModelAdapter
+  alias GitTrendex.App.DbUpdater
 
   @spec get_repo(non_neg_integer | binary) :: Repository.t() | nil
   def get_repo(id) when is_integer(id) do
@@ -25,6 +26,9 @@ defmodule GitTrendex.App.Api do
         repos
         |> Enum.map(&RepositoryModelAdapter.from_git!/1)
         |> Pact.repo().refresh_repos()
+
+        DbUpdater.restart_timer()
+
         :ok
       {:error, reason} ->
         {:error, reason}

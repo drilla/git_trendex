@@ -2,6 +2,7 @@ defmodule GitTrendex.App.DbUpdater do
   use GenServer
 
   require GitTrendex.Pact
+  require Logger
 
   alias GitTrendex.Pact, as: Pact
 
@@ -24,19 +25,9 @@ defmodule GitTrendex.App.DbUpdater do
     GenServer.call(__MODULE__, :last_update)
   end
 
-  @spec update(State.t()) :: State.t()
-  def update(%State{timeout: nil} = state) do
-    state
-  end
-
-  def update(%State{timeout: timeout, timer: timer} = state) do
-    stop_timer(timer)
-
-    Pact.app_api().sync()
-
-    new_timer = Process.send_after(self(), :update, timeout)
-
-    %State{state | timer: new_timer, last_update: :os.system_time()}
+  @spec restart_timer :: any
+  def restart_timer() do
+    Kernel.send(__MODULE__, :restart_timer)
   end
 
   ############
@@ -58,6 +49,12 @@ defmodule GitTrendex.App.DbUpdater do
     {:reply, last_update, state}
   end
 
+  def handle_info(:restart_timer, %State{} = state) do
+    new_timer = do_restart_timer(state)
+
+    {:noreply, %State{state | timer: new_timer}}
+  end
+
   def handle_info(:update, %State{} = state) do
     new_state = update(state)
     {:noreply, new_state}
@@ -77,6 +74,27 @@ defmodule GitTrendex.App.DbUpdater do
   ## PRIVATE
   ##########
 
+  @spec update(State.t()) :: State.t()
+  defp update(%State{timeout: nil} = state) do
+    state
+  end
+
+  defp update(%State{} = state) do
+    new_timer = do_restart_timer(state)
+
+    Pact.app_api().sync()
+
+    %State{state | timer: new_timer, last_update: :os.system_time()}
+  end
+
+  defp do_restart_timer(%State{timeout: timeout, timer: timer}) do
+    Logger.info("restarting timer")
+    stop_timer(timer)
+    Process.send_after(self(), :update, timeout)
+  end
+
   defp stop_timer(nil), do: false
-  defp stop_timer(ref), do: Process.cancel_timer(ref)
+  defp stop_timer(ref) do
+    Process.cancel_timer(ref)
+  end
 end
