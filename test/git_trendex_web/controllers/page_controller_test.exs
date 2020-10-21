@@ -28,7 +28,7 @@ defmodule GitTrendexWeb.PageControllerTest do
   end
 
   test "sync", %{conn: conn} do
-    conn = post(conn, :sync)
+    conn = get(conn, :sync)
     assert json_response(conn, 200) == "ok"
   end
 end

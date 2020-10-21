@@ -10,6 +10,6 @@ defmodule GitTrendexWeb.Router do
 
     get "/", PageController, :index
     get "/show", PageController, :show
-    post "/sync", PageController, :sync
+    get "/sync", PageController, :sync #usually post, but u will use browser, right?)
   end
 end
