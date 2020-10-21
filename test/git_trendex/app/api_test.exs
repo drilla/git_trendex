@@ -2,7 +2,6 @@ defmodule Test.GitTrendex.App.ApiTest do
   alias GitTrendex.App.Api
   alias GitTrendex.Db.Repository
   alias GitTrendex.Pact
-  alias GitTrendex.Github.RepositoryModel, as: GitRepository
 
   alias Test.GitTrendex.Mocks.Github.ApiError
   alias Test.GitTrendex.Mocks.Github.ApiOk
@@ -61,8 +60,8 @@ defmodule Test.GitTrendex.App.ApiTest do
   describe "sync ok using stubs" do
     setup do
       on_exit(fn ->
-        Pact.register(:github_api, GitTrendex.Github.Api)
-        Pact.register(:repo, GitTrendex.Db.Repo)
+        Pact.register_default(:github_api)
+        Pact.register_default(:repo)
       end)
 
       Pact.register(:github_api, ApiOk)
@@ -80,9 +79,7 @@ defmodule Test.GitTrendex.App.ApiTest do
       add_repo(%Repository{id: 1, name: "test", stars: 1})
       add_repo(%Repository{id: 10, name: "test10", stars: 10})
 
-      on_exit(fn ->
-        Pact.register(:github_api, GitTrendex.Github.Api)
-      end)
+      on_exit(fn -> Pact.register_default(:github_api) end)
 
       fake_api =
         Pact.generate :github_api do
@@ -121,6 +118,7 @@ defmodule Test.GitTrendex.App.ApiTest do
   describe "sync fail by api" do
     setup do
       Pact.register(:github_api, ApiError)
+      on_exit(fn -> Pact.register_default(:github_api) end)
       %{}
     end
 

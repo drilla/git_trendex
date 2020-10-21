@@ -1,5 +1,5 @@
 defmodule GitTrendexWeb.PageControllerTest do
-  use GitTrendexWeb.ConnCase
+  use GitTrendexWeb.ConnCase, async: false
   alias Test.GitTrendex.Helpers.Db
   alias GitTrendex.Db.Repository
 
@@ -27,7 +27,7 @@ defmodule GitTrendexWeb.PageControllerTest do
     assert json_response(conn, 200) == Jason.encode!(item) |> Jason.decode!()
   end
 
-  test "sync", %{conn: conn, item: item} do
+  test "sync", %{conn: conn} do
     conn = post(conn, :sync)
     assert json_response(conn, 200) == "ok"
   end
