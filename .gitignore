@@ -32,6 +32,7 @@ npm-debug.log
 
 /config/*.secret.exs
 .env
+/data
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
