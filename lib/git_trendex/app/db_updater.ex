@@ -90,7 +90,7 @@ defmodule GitTrendex.App.DbUpdater do
   defp do_restart_timer(%State{timeout: timeout, timer: timer}) do
     Logger.info("restarting timer")
     stop_timer(timer)
-    Process.send_after(self(), :update, timeout)
+    Process.send_after(__MODULE__, :update, timeout)
   end
 
   defp stop_timer(nil), do: false

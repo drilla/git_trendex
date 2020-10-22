@@ -28,7 +28,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Import environment specific config. This must remain at the bottom
+config :git_trendex, GitTrendex.Db.Repo,
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASSWORD")
+
+  # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "config.secret.exs"
 import_config "#{Mix.env()}.exs"
