@@ -4,8 +4,8 @@
 
 - install docker and docker-compose
 - copy .env.dist > .env and fill values
-- docker-compose build
-- docker-compose up 
+- **docker-compose build**
+- **docker-compose up** 
 - wait until image compilation is complete 
 
   Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
@@ -14,18 +14,22 @@
 - running tests 
    go to app dir
     
-  1. mix test_unit - no enviroment required. Can be started on any machine with erlang and elixir installed
+  1. **mix test_unit** - no enviroment required. Can be started on any machine with erlang and elixir installed
 
   2. integration test have to use enviroment
-     docker-compose run web /bin/bash
-     MIX_ENV=test mix test_integration
+    
+     - attach terminal to container
+       **docker-compose run web /bin/bash**
      
-     you can also run a unit tests here
-     MIX_ENV=test mix test_unit
+     - run tests 
+       **MIX_ENV=test mix test_integration**
+     
+     - you can also run a unit tests here
+       **MIX_ENV=test mix test_unit**
 
   4. test coverage (integration tests)
 
-     docker-compose run web /bin/bash
+     **docker-compose run web /bin/bash**
 
   5. to run coverage for unit tests, change in mix.exs
    test_coverage: [tool: ExCoveralls, test_task: "test_integration"]
@@ -52,11 +56,11 @@ A simple cli client was built with escript. It uses erlang rpc remote calls on r
 
 running client
   client app is placed in same container as main application, for simplicity. So, we have to start application first
-  1. docker-compose up 
+  1. **docker-compose up** 
   2. then open a new terminal window and run bash on container
-      docker-compose exec   web /bin/bash
-  3. run client
-  ./git_trendex    
+      **docker-compose exec   web /bin/bash**
+  3. run client in attached terminal
+  **./git_trendex**    
    
    no args - show help
     
