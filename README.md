@@ -1,6 +1,6 @@
 # GitTrendex
 
-INSTRUCTIONS
+### INSTRUCTIONS
 
 - install docker and docker-compose
 - copy .env.dist > .env and fill values
@@ -33,19 +33,19 @@ INSTRUCTIONS
 
   6. check out app config to determine timeouts of refresh
 
-======================
-BROWSER INTERFACE
+
+### BROWSER INTERFACE
 
 
 testing through http json api
 
-localhost:4000/ - list all repos
-localhost:4000/sync - start syncing 
-localhost:4000/show?id=123 - show repo with id=123 
-localhost:4000/show?name=123- show repo with name=123 
+- localhost:4000/ - list all repos
+- localhost:4000/sync - start syncing 
+- localhost:4000/show?id=123 - show repo with id=123 
+- localhost:4000/show?name=123- show repo with name=123 
 
-======================
-CLI INTERFACE
+
+### CLI INTERFACE
 
 
 A simple cli client was built with escript. It uses erlang rpc remote calls on running main node
