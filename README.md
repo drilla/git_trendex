@@ -28,8 +28,9 @@
        **MIX_ENV=test mix test_unit**
 
   4. test coverage (integration tests)
-
+     !! application must be off for tests!!
      **docker-compose run web /bin/bash**
+     **MIX_ENV=test mix coveralls**
 
   5. to run coverage for unit tests, change in mix.exs
    test_coverage: [tool: ExCoveralls, test_task: "test_integration"]
