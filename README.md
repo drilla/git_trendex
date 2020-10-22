@@ -1,5 +1,7 @@
 # GitTrendex
+
 INSTRUCTIONS
+
 - install docker and docker-compose
 - copy .env.dist > .env and fill values
 - docker-compose build
@@ -29,9 +31,11 @@ INSTRUCTIONS
    test_coverage: [tool: ExCoveralls, test_task: "test_integration"]
    "test_integration" to "test_unit"
 
+  6. check out app config to determine timeouts of refresh
+
 ======================
-==== BROWSER INTERFACE
-======================
+BROWSER INTERFACE
+
 
 testing through http json api
 
@@ -41,8 +45,8 @@ localhost:4000/show?id=123 - show repo with id=123
 localhost:4000/show?name=123- show repo with name=123 
 
 ======================
-======== CLI INTERFACE
-======================
+CLI INTERFACE
+
 
 A simple cli client was built with escript. It uses erlang rpc remote calls on running main node
 
