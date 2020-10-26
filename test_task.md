@@ -1,6 +1,3 @@
-Test Task for Elixir Knowledge
-
-Thanks for your desire to spend some time and show us your Elixir skills. 
 
 Please implement a service, which will
 Check GitHub API every X minutes and pull trending repositories;
